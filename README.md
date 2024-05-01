@@ -29,6 +29,17 @@ The virtualized testbed environment is specifically created to enable the execut
 3. Configure network settings to enable communication between the emulated AAL devices and the MQTT broker.
 
 #### Sequence Diagrams
+The Sequence Diagrams which depict the environment setup and attack scenario designs can be found in the `Sequence Diagrams` folder.
 
+### Test Scenario
+#### Man-in-the-middle Attack Scenario
+Once the environment has been setup and the mqtt publishers data is being received by the subscriber. We can then initiate the man-in-the-middle attack in the following steps.
+1. Perform a full scan of the network using the nmap tool on the attacker machine 
+2. Identify the mqtt port `1883` and protocol versions
+3. Setup `IP_FORWARDING` on the attacker machine using `sysctl -w net.ipv4.ip_forward=1` to ensure transparency of man-in-the-middle attack to the audience
+4. Perform the man-in-the-middle attack between the broker and subscriber using 
+    `ettercap -Tq -i eth0 -M arp:remote //insert_broker_ip/ //insert_subscriber_ip/ -w dump.pcap
+5. Produce the output of the dump.pcap to view the result using 
+    `wireshark dump.pcap`
 
-#### Test Scenario
+#### Denial of Service Attack Scenario
