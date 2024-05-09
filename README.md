@@ -43,3 +43,10 @@ Once the environment has been setup and the mqtt publishers data is being receiv
     `wireshark dump.pcap`
 
 #### Denial of Service Attack Scenario
+Following the same pattern as the man-in-the-middle attack with the environment setup, we can initiate the denial-of-service attack in the following steps.
+1. Network scanning: Conduct a full network scan using the Nmap tool on the Kali Linux machine to identify potential targets and their open ports using:
+                `nmap -sS -p- <target_IP>`
+2. After scanning, the attacker discovers a MQTT service operating on port 1883 on the target machine.
+3. The attacker readies themselves for the Slowloris DDOS attack by initiating the Slowloris tool from the Kali Linux machine.
+4. Slowloris creates numerous HTTP connections to the MQTT service on the designated device, but it deliberately delivers HTTP headers at a sluggish pace, with the intention of prolonging the duration of these sessions.
+5. Slowloris maintains connections by transmitting incomplete HTTP requests to the MQTT service, preventing its ability to process valid subscriber requests on the broker.
